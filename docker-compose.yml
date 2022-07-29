@@ -1,10 +1,12 @@
-version: "3.4"
+name: mssql-intershop
+
 services:
   mssql-server:
-    image: ${IMAGE}
-    container_name: mssql-server${BUILDID}
+    build: .
+    image: mssql-intershop:2019-latest
+    container_name: mssql-intershop-2019-latest
     ports:
-    - "1433:1433"
+      - "1433:1433"
 
     volumes:
       - type: volume
@@ -12,6 +14,7 @@ services:
         target: /var/opt/mssql
         volume:
           nocopy: true
+      - ./backup:/var/opt/mssql/backup
 
     environment:
       ACCEPT_EULA:  Y
@@ -19,6 +22,7 @@ services:
       MSSQL_PID:    Developer
       RECREATEDB:   "false"
       RECREATEUSER: "false"
+      ICM_DB_NAME:  ish_7_10_dev
 
 volumes:
   mssqlserver:
