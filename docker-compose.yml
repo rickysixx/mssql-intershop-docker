@@ -7,7 +7,6 @@ services:
     container_name: mssql-intershop-2019-latest
     ports:
       - "1433:1433"
-
     volumes:
       - type: volume
         source: mssqlserver
@@ -15,7 +14,6 @@ services:
         volume:
           nocopy: true
       - ./backup:/var/opt/mssql/backup
-
     environment:
       ACCEPT_EULA:  Y
       SA_PASSWORD:  1nstershop5A
@@ -23,6 +21,7 @@ services:
       RECREATEDB:   "false"
       RECREATEUSER: "false"
       ICM_DB_NAME:  ish_7_10_dev
+    restart: unless-stopped
 
 volumes:
   mssqlserver:
